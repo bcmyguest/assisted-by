@@ -1,0 +1,19 @@
+{
+  "name": "assisted-by",
+  "version": "0.1.0",
+  "description": "Enforce Linux-kernel AI commit attribution: require an `Assisted-by:` trailer and forbid AI `Signed-off-by:` / `Co-Authored-By: Claude` on git commits.",
+  "author": { "name": "bcmyguest" },
+  "homepage": "https://github.com/bcmyguest/assisted-by",
+  "repository": "https://github.com/bcmyguest/assisted-by",
+  "license": "SEE LICENSE IN LICENSE",
+  "keywords": [
+    "git",
+    "attribution",
+    "assisted-by",
+    "commit",
+    "linux-kernel",
+    "ai",
+    "claude-code"
+  ],
+  "skills": "./skills/"
+}

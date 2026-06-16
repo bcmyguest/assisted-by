@@ -1,0 +1,11 @@
+{
+  "$schema": "https://skills.sh/schemas/skills.sh.schema.json",
+  "notGrouped": "bottom",
+  "groupings": [
+    {
+      "title": "Git",
+      "description": "Attribute AI assistance in git commits the Linux-kernel way — an `Assisted-by:` trailer, no AI `Signed-off-by:` or `Co-Authored-By:`.",
+      "skills": ["git-attribution"]
+    }
+  ]
+}

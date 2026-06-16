@@ -1,0 +1,21 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "assisted-by",
+  "owner": {
+    "name": "bcmyguest",
+    "url": "https://github.com/bcmyguest"
+  },
+  "metadata": {
+    "description": "Kernel-style AI commit attribution (Assisted-by) — skill + enforcing PreToolUse hook.",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "assisted-by",
+      "description": "Credit AI assistance with an `Assisted-by:` trailer per the Linux-kernel coding-assistants policy. Ships the `git-attribution` skill plus a PreToolUse hook that blocks `git commit` commands that author a message without the trailer, or that add an AI `Signed-off-by:` / `Co-Authored-By: Claude`.",
+      "source": ".",
+      "category": "git",
+      "strict": false
+    }
+  ]
+}
