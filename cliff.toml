@@ -1,0 +1,44 @@
+# git-cliff configuration — turn Conventional Commit history into release notes.
+# CI (.github/workflows/release.yml) runs `git-cliff --latest` and feeds the
+# output to the GitHub Release body. Locally:
+#   git-cliff --latest --strip header        # notes for the newest tag
+#   git-cliff --tag vX.Y.Z -o CHANGELOG.md   # regenerate the full changelog
+[changelog]
+header = ""
+# tera template: a section per commit group, scope in bold, short sha.
+body = """
+{% if version %}## {{ version | trim_start_matches(pat="v") }}{% else %}## Unreleased{% endif %}
+{% for group, commits in commits | group_by(attribute="group") %}
+### {{ group | striptags | trim | upper_first }}
+{% for commit in commits %}
+- {% if commit.scope %}**{{ commit.scope }}:** {% endif %}{{ commit.message | upper_first }} ({{ commit.id | truncate(length=7, end="") }})
+{%- endfor %}
+{% endfor %}
+"""
+trim = true
+footer = ""
+
+[git]
+conventional_commits = true
+filter_unconventional = true
+split_commits = false
+# Map commit types to the headings shown in the notes; order here is render order.
+# Group names carry a hidden numeric prefix so notes render in this order
+# (group_by sorts on the raw string); the template strips the comment tag.
+commit_parsers = [
+  { message = "^feat", group = "<!-- 0 -->Features" },
+  { message = "^fix", group = "<!-- 1 -->Bug Fixes" },
+  { message = "^perf", group = "<!-- 2 -->Performance" },
+  { message = "^refactor", group = "<!-- 3 -->Refactor" },
+  { message = "^docs", group = "<!-- 4 -->Documentation" },
+  { message = "^build", group = "<!-- 5 -->Build & Tooling" },
+  { message = "^ci", group = "<!-- 6 -->CI" },
+  { message = "^test", group = "<!-- 7 -->Tests" },
+  { message = "^style", skip = true },
+  { message = "^chore", skip = true },
+  { message = "^revert", group = "<!-- 8 -->Reverts" },
+]
+protect_breaking_commits = true
+filter_commits = false
+tag_pattern = "v[0-9]*"
+sort_commits = "newest"
